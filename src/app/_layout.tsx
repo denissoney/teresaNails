@@ -1,18 +1,46 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { View, Image, Text, StyleSheet } from "react-native";
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function SplashScreen() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <View style={styles.container}>
+      <View style={styles.logoContainer}>
+        <Image 
+          source={require("../../assets/images/Teresa_Silva_logo_transparente.png")} 
+          style={styles.logo}
+          resizeMode="contain"
+        />
+      </View>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FAF6F0",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logoContainer: {
+    alignItems: "center",
+  },
+  logo: {
+    width: 500,
+    height: 500,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 22,
+    letterSpacing: 3,
+    color: "#8B7355",
+    fontWeight: "300",
+    fontFamily: "serif",
+  },
+  subtitle: {
+    fontSize: 12,
+    letterSpacing: 4,
+    color: "#C9A96E",
+    marginTop: 6,
+    textTransform: "uppercase",
+  }
+});

@@ -1,12 +1,9 @@
 import * as Device from 'expo-device';
 import { Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
+import { View, Text, StatusBar, Image } from "react-native";
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 
 function getDevMenuHint() {
@@ -33,29 +30,20 @@ export default function HomeScreen() {
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
+          <Image source={require("@/assets/images/Teresa_Silva_logo_transparente.png")} style={styles.logo} resizeMode="contain"/>
         </ThemedView>
+         
+         <ThemedText type="title" style={styles.title}>
+          Teresa Silva Nails
+         </ThemedText> 
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+         <ThemedText type="small">
+          Sua beleza, nosso cuidado
+         </ThemedText> 
 
         <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
         </ThemedView>
 
-        {Platform.OS === 'web' && <WebBadge />}
       </SafeAreaView>
     </ThemedView>
   );
@@ -95,4 +83,9 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.four,
     borderRadius: Spacing.four,
   },
+  logo: {
+    width: 220,
+    height: 220,
+    marginBottom: 10,
+  }
 });

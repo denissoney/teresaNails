@@ -5,6 +5,7 @@
   "dependencies": {
     "@expo/ui": "~57.0.22",
     "expo": "~57.0.27",
+    "expo-av": "^16.0.8",
     "expo-constants": "~57.0.21",
     "expo-device": "~57.0.2",
     "expo-font": "~57.0.4",
@@ -17,6 +18,8 @@
     "expo-symbols": "~57.0.3",
     "expo-system-ui": "~57.0.4",
     "expo-web-browser": "~57.0.3",
+    "lottie-ios": "^3.2.3",
+    "lottie-react-native": "^7.5.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-native": "0.86.3",
