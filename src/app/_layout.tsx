@@ -1,46 +1,30 @@
-import { View, Image, Text, StyleSheet } from "react-native";
 
-export default function SplashScreen() {
+import { useEffect } from "react";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { ThemeProvider } from "../app/contexts/ThemeContext";
+
+SplashScreen.preventAutoHideAsync().catch(() => {});
+
+export default function Layout() {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      SplashScreen.hideAsync().catch(() => {});
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image 
-          source={require("../../assets/images/Teresa_Silva_logo_transparente.png")} 
-          style={styles.logo}
-          resizeMode="contain"
-        />
-      </View>
-    </View>
+    <ThemeProvider>
+      <Stack screenOptions={{ headerShown: false, animation: "none", }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="home" />
+        <Stack.Screen name="agenda" />
+        <Stack.Screen name="clientes" />
+        <Stack.Screen name="financeiro" />
+        <Stack.Screen name="mais" />
+      </Stack>
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FAF6F0",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logoContainer: {
-    alignItems: "center",
-  },
-  logo: {
-    width: 500,
-    height: 500,
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 22,
-    letterSpacing: 3,
-    color: "#8B7355",
-    fontWeight: "300",
-    fontFamily: "serif",
-  },
-  subtitle: {
-    fontSize: 12,
-    letterSpacing: 4,
-    color: "#C9A96E",
-    marginTop: 6,
-    textTransform: "uppercase",
-  }
-});
