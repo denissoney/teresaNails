@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { ThemeProvider } from "../app/contexts/ThemeContext";
+import { ThemeProvider } from "../contexts/ThemeContext";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 

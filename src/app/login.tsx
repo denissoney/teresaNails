@@ -11,7 +11,6 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -19,13 +18,17 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function Login() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
+
   const [recuperacaoAberta, setRecuperacaoAberta] = useState(false);
-  const [metodoRecuperacao, setMetodoRecuperacao] = useState< "email" | "celular">("email");
+  const [metodoRecuperacao, setMetodoRecuperacao] = useState<
+    "email" | "celular"
+  >("email");
   const [contatoRecuperacao, setContatoRecuperacao] = useState("");
-  
+
   function entrar() {
     const emailLimpo = email.trim();
 
@@ -53,6 +56,15 @@ export default function Login() {
     }
 
     router.replace("/home");
+  }
+
+  // LOGIN COM GOOGLE
+  // A autenticação real será conectada ao Supabase posteriormente.
+  function entrarComGoogle() {
+    Alert.alert(
+      "Login com Google",
+      "Para entrar com sua conta Google, precisamos configurar a autenticação no Supabase."
+    );
   }
 
   // ABRE OU FECHA A RECUPERAÇÃO DE SENHA
@@ -384,6 +396,32 @@ export default function Login() {
               />
             </TouchableOpacity>
 
+            {/* DIVISOR */}
+            <View style={styles.divisorContainer}>
+              <View style={styles.linhaDivisor} />
+              <Text style={styles.textoDivisor}>ou</Text>
+              <View style={styles.linhaDivisor} />
+            </View>
+
+            {/* LOGIN COM GOOGLE */}
+            <TouchableOpacity
+              style={styles.botaoGoogle}
+              onPress={entrarComGoogle}
+              activeOpacity={0.8}
+            >
+              <Image
+                source={{
+                  uri: "https://developers.google.com/identity/images/g-logo.png",
+                }}
+                style={styles.logoGoogle}
+                resizeMode="contain"
+              />
+
+              <Text style={styles.textoBotaoGoogle}>
+                Continuar com Google
+              </Text>
+            </TouchableOpacity>
+
             {/* CADASTRO */}
             <View style={styles.linhaCadastro}>
               <Text style={styles.textoCadastro}>
@@ -602,6 +640,48 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
     color: "#FFFFFF",
+  },
+
+  divisorContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 22,
+    gap: 12,
+  },
+
+  linhaDivisor: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#E8DAD4",
+  },
+
+  textoDivisor: {
+    fontSize: 13,
+    color: "#A99B96",
+  },
+
+  botaoGoogle: {
+    minHeight: 54,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "#E8DAD4",
+    borderRadius: 14,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 12,
+    marginTop: 0,
+  },
+
+  logoGoogle: {
+    width: 22,
+    height: 22,
+  },
+
+  textoBotaoGoogle: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#171514",
   },
 
   linhaCadastro: {

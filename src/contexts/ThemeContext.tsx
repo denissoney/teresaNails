@@ -64,17 +64,9 @@ export function ThemeProvider({
   children: ReactNode;
 }) {
   const esquemaDispositivo = useColorScheme();
-
   const [tema, setTemaAtual] = useState<Tema>("claro");
   const [carregandoTema, setCarregandoTema] = useState(true);
-
-  const esquemaEfetivo: ColorSchemeName =
-    tema === "automatico"
-      ? esquemaDispositivo
-      : tema === "escuro"
-        ? "dark"
-        : "light";
-
+  const esquemaEfetivo =  tema === "automatico" ? (esquemaDispositivo ?? "light") : tema === "escuro" ? "dark" : "light";
   const dark = esquemaEfetivo === "dark";
 
   useEffect(() => {
