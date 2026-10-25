@@ -6,13 +6,12 @@ export default function Splash() {
   const router = useRouter();
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.replace("/home"); }, 2000);
+      router.replace("/login"); }, 2000);
     return () => clearTimeout(timer);
   }, [router]);
 
   return (
     <View style={styles.container}>
-      <StatusBar hidden backgroundColor="#FCE7EF" />
       <Image source={require("../../assets/images/Teresa_Silva_logo_transparente.png")} style={styles.logo} resizeMode="contain" />
     </View>
   );
