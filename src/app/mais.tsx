@@ -56,24 +56,15 @@ export default function Mais() {
 
       {/* CONTEÚDO DA TELA */}
       <View style={styles.content}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.scrollContent}
-        >
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
           <Text style={styles.titulo}>Configurações</Text>
-
           <Text style={styles.subtitulo}>
             Gerencie seu app
           </Text>
-
           {/* CARD DO PERFIL */}
-          <TouchableOpacity
-            style={styles.cardPerfil}
-            activeOpacity={0.8}
-            onPress={() => navegar("/perfil")}
-          >
+          <TouchableOpacity style={styles.cardPerfil} activeOpacity={0.8} onPress={() => navegar("/perfil")}>
             <View style={styles.perfilIcon}>
-              <Text style={styles.perfilLetra}>T</Text>
+            < Image source={require("@/assets/images/logo-redonda.png")} style={styles.lgredonda} resizeMode= "contain" />
             </View>
 
             <View style={styles.perfilInfo}>
@@ -86,190 +77,74 @@ export default function Mais() {
               </Text>
             </View>
 
-            <Ionicons
-              name="chevron-forward"
-              size={18}
-              color="#000"
-            />
+            <Ionicons name="chevron-forward" size={18} color="#000"/>
           </TouchableOpacity>
 
           {/* SEÇÃO GERAL */}
           <Text style={styles.secaoLabel}>Geral</Text>
 
           <View style={styles.box}>
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => navegar("/servicos")}
-              activeOpacity={0.7}
-            >
+            <TouchableOpacity style={styles.item} onPress={() => navegar("/servicos")} activeOpacity={0.7}>
               <Text style={styles.emoji}>✂️</Text>
 
               <Text style={styles.itemTexto}>
                 Serviços e preços
               </Text>
 
-              <Ionicons
-                name="chevron-forward"
-                size={16}
-                color="#000"
-                style={styles.chevron}
-              />
+              <Ionicons name="chevron-forward" size={16} color="#000" style={styles.chevron}/>
             </TouchableOpacity>
 
             <View style={styles.divider} />
 
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => navegar("/horario")}
-              activeOpacity={0.7}
-            >
-              <Ionicons
-                name="time-outline"
-                size={18}
-                color="#000"
-              />
-
+            <TouchableOpacity style={styles.item} onPress={() => navegar("/horario")} activeOpacity={0.7}>
+              <Ionicons name="time-outline" size={18} color="#000"/>
               <Text style={styles.itemTexto}>
                 Horário de funcionamento
               </Text>
-
-              <Ionicons
-                name="chevron-forward"
-                size={16}
-                color="#000"
-                style={styles.chevron}
-              />
+              <Ionicons name="chevron-forward" size={16} color="#000" style={styles.chevron}/>
             </TouchableOpacity>
-
             <View style={styles.divider} />
-
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => navegar("/pagamento")}
-              activeOpacity={0.7}
-            >
-              <Ionicons
-                name="card-outline"
-                size={18}
-                color="#000"
-              />
-
+            <TouchableOpacity style={styles.item} onPress={() => navegar("/pagamento")} activeOpacity={0.7}>
+              <Ionicons name="card-outline" size={18} color="#000"/>
               <Text style={styles.itemTexto}>
                 Forma de pagamento
               </Text>
-
-              <Ionicons
-                name="chevron-forward"
-                size={16}
-                color="#000"
-                style={styles.chevron}
-              />
+              <Ionicons name="chevron-forward" size={16} color="#000" style={styles.chevron}/>
             </TouchableOpacity>
-
             <View style={styles.divider} />
-
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => navegar("/aparencia")}
-              activeOpacity={0.7}
-            >
-              <Ionicons
-                name="color-palette-outline"
-                size={18}
-                color="#000"
-              />
-
+            <TouchableOpacity style={styles.item} onPress={() => navegar("/aparencia")} activeOpacity={0.7}>
+              <Ionicons name="color-palette-outline" size={18} color="#000"/>
               <Text style={styles.itemTexto}>
                 Aparência
               </Text>
-
-              <Ionicons
-                name="chevron-forward"
-                size={16}
-                color="#000"
-                style={styles.chevron}
-              />
+              <Ionicons name="chevron-forward" size={16} color="#000" style={styles.chevron}/>
             </TouchableOpacity>
           </View>
 
           {/* SEÇÃO SOBRE */}
           <Text style={styles.secaoLabel}>Sobre</Text>
-
           <View style={styles.box}>
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => navegar("/sobre")}
-              activeOpacity={0.7}
-            >
-              <Ionicons
-                name="help-circle-outline"
-                size={18}
-                color="#000"
-              />
-
+            <TouchableOpacity style={styles.item} onPress={() => navegar("/sobre")} activeOpacity={0.7}>
+              <Ionicons name="help-circle-outline" size={18} color="#000"/>
               <Text style={styles.itemTexto}>
                 Sobre o app
               </Text>
-
-              <Ionicons
-                name="chevron-forward"
-                size={16}
-                color="#000"
-                style={styles.chevron}
-              />
+              <Ionicons name="chevron-forward" size={16} color="#000" style={styles.chevron}/>
             </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
-
-      {/* BARRA DE NAVEGAÇÃO IGUAL À TELA FINANCEIRO */}
-      <View
-        style={[
-          styles.navegacao,
-          {
-            paddingBottom: Math.max(insets.bottom, 5),
-          },
-        ]}
-      >
-        <BotaoNav
-          icone="home"
-          titulo="Início"
-          ativo={false}
-          onPress={() => router.replace("/home")}
-        />
-
-        <BotaoNav
-          icone="calendar-outline"
-          titulo="Agenda"
-          ativo={false}
-          onPress={() => navegar("/agenda")}
-        />
-
-        <BotaoNav
-          icone="people-outline"
-          titulo="Clientes"
-          ativo={false}
-          onPress={() => navegar("/clientes")}
-        />
-
-        <BotaoNav
-          icone="cash-outline"
-          titulo="Financeiro"
-          ativo={false}
-          onPress={() => navegar("/financeiro")}
-        />
-
-        <BotaoNav
-          icone="settings-outline"
-          titulo="Mais"
-          ativo={true}
-          onPress={() => router.replace("/mais")}
-        />
+      {/* BARRA DE NAVEGAÇÃO */}
+      <View style={[ styles.navegacao, { paddingBottom: Math.max(insets.bottom, 5), },]}>
+        <BotaoNav icone="home" titulo="Início" ativo={false} onPress={() => router.replace("/home")}/>
+        <BotaoNav icone="calendar-outline" titulo="Agenda" ativo={false} onPress={() => navegar("/agenda")}/>
+        <BotaoNav icone="people-outline" titulo="Clientes" ativo={false} onPress={() => navegar("/clientes")}/>
+        <BotaoNav icone="cash-outline" titulo="Financeiro" ativo={false} onPress={() => navegar("/financeiro")}/>
+        <BotaoNav icone="settings-outline" titulo="Mais" ativo={true} onPress={() => router.replace("/mais")}/>
       </View>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -291,6 +166,7 @@ const styles = StyleSheet.create({
     height: 34,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 60
   },
 
   btnMenu: {
@@ -489,4 +365,7 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     fontSize: 10,
   },
+  lgredonda: {
+    width: 30,
+  }
 });

@@ -1,20 +1,11 @@
-
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  StatusBar,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, StatusBar,} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const FUNDO = "#F7F0EC";
 const DOURADO = "#C9A86A";
-
 export default function AgendamentoSalvo() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -24,36 +15,16 @@ export default function AgendamentoSalvo() {
   }
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-        },
-      ]}
-    >
-      <StatusBar
-        backgroundColor={FUNDO}
-        barStyle="dark-content"
-      />
+    <View style={[ styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom, },]}>
 
       {/* LOGO */}
-      <Image
-        source={require("../../assets/images/Teresa_Silva_logo_transparente.png")}
-        style={styles.logo}
-        resizeMode="contain"
-      />
+      <Image source={require("../../assets/images/Teresa_Silva_logo_transparente.png")} style={styles.logo} resizeMode="contain"/>
 
       {/* ÍCONE DE SUCESSO */}
       <View style={styles.sucessoContainer}>
         <View style={styles.bordaExterna}>
           <View style={styles.bordaInterna}>
-            <Ionicons
-              name="checkmark"
-              size={76}
-              color="#FFFFFF"
-            />
+            <Ionicons name="checkmark" size={76} color="#FFFFFF"/>
           </View>
         </View>
       </View>
@@ -70,11 +41,7 @@ export default function AgendamentoSalvo() {
       </View>
 
       {/* BOTÃO VER AGENDA */}
-      <TouchableOpacity
-        style={styles.botao}
-        onPress={verAgenda}
-        activeOpacity={0.8}
-      >
+      <TouchableOpacity style={styles.botao} onPress={verAgenda} activeOpacity={0.8}>
         <Text style={styles.textoBotao}>
           Ver agenda
         </Text>

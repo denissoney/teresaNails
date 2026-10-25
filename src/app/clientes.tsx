@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  // BARRA INFERIOR — MESMO PADRÃO DA AGENDA
+  // BARRA INFERIOR 
   tabBar: {
     minHeight: 70,
     backgroundColor: ROSA,
@@ -461,6 +461,7 @@ const styles = StyleSheet.create({
   logoImg: {
     width: 300,
     height: 300,
-    margin: -90
+    top: 10,
+    margin: -90,
   }
 });

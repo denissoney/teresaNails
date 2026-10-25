@@ -18,7 +18,7 @@ export default function Sobre() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F7F0EC" />
+      <StatusBar barStyle="dark-content" />
 
       {/* Cabeçalho */}
       <View

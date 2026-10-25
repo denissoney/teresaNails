@@ -1,21 +1,8 @@
 
 import React, { useRef, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  StatusBar,
-  PanResponder,
-  Animated,
-  Dimensions,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, PanResponder, Animated, Dimensions,} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import {
-  useRouter,
-  usePathname,
-} from "expo-router";
+import { useRouter, usePathname,} from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MenuDrawer from "../components/MenuDrawer";
 
@@ -24,7 +11,6 @@ const FUNDO = "#F7F0EC";
 const TEXTO = "#171514";
 const VERDE = "#36A853";
 const DESTAQUE = "#B66F81";
-
 const LARGURA_TELA = Dimensions.get("window").width;
 
 type IconName = React.ComponentProps<typeof Ionicons>["name"];
@@ -64,11 +50,7 @@ function Atalho({ titulo, icone, destino }: AtalhoProps) {
   const router = useRouter();
 
   return (
-    <TouchableOpacity
-      style={styles.atalho}
-      activeOpacity={0.7}
-      onPress={() => router.push(destino as never)}
-    >
+    <TouchableOpacity style={styles.atalho} activeOpacity={0.7} onPress={() => router.push(destino as never)}>
       <Ionicons name={icone} size={25} color={TEXTO} />
       <Text style={styles.atalhoTexto}>{titulo}</Text>
     </TouchableOpacity>
@@ -81,41 +63,17 @@ type BotaoNavProps = {
   ativo: boolean;
   onPress: () => void;
 };
-
-function BotaoNav({
-  icone,
-  titulo,
-  ativo,
-  onPress,
-}: BotaoNavProps) {
+function BotaoNav({ icone, titulo, ativo, onPress,}: BotaoNavProps) {
   return (
-    <TouchableOpacity
-      style={styles.botaoNav}
-      onPress={onPress}
-      activeOpacity={0.7}
-    >
+    <TouchableOpacity style={styles.botaoNav} onPress={onPress} activeOpacity={0.7}>
       <View style={styles.areaIndicador}>
         {ativo && <View style={styles.linhaAtiva} />}
       </View>
 
-      <Animated.View
-        style={[
-          styles.conteudoNav,
-          ativo && styles.conteudoNavAtivo,
-        ]}
-      >
-        <Ionicons
-          name={icone}
-          size={ativo ? 27 : 23}
-          color={TEXTO}
-        />
+      <Animated.View style={[ styles.conteudoNav, ativo && styles.conteudoNavAtivo, ]}>
+        <Ionicons name={icone} size={ativo ? 27 : 23} color={TEXTO}/>
 
-        <Text
-          style={[
-            styles.textoNav,
-            ativo && styles.textoNavAtivo,
-          ]}
-        >
+        <Text style={[ styles.textoNav, ativo && styles.textoNavAtivo, ]}>
           {titulo}
         </Text>
       </Animated.View>
@@ -127,9 +85,7 @@ export default function Home() {
   const router = useRouter();
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
-
   const [menuAberto, setMenuAberto] = useState(false);
-
   const inicioArraste = useRef(0);
   const gestoHorizontal = useRef(false);
 
@@ -150,41 +106,29 @@ export default function Home() {
     });
   }
 
-  const panResponder = useRef(
-    PanResponder.create({
+  const panResponder = useRef( PanResponder.create({
       onStartShouldSetPanResponder: () => false,
-
       onMoveShouldSetPanResponder: (_, gesture) => {
         const comecaNaBorda = inicioArraste.current < 35;
-        const arrastaParaDireita =
-          gesture.dx > 12 &&
-          Math.abs(gesture.dx) > Math.abs(gesture.dy);
-
-        const arrastaParaEsquerda =
-          menuAberto &&
-          gesture.dx < -12 &&
-          Math.abs(gesture.dx) > Math.abs(gesture.dy);
+        const arrastaParaDireita = gesture.dx > 12 && Math.abs(gesture.dx) > Math.abs(gesture.dy);
+        const arrastaParaEsquerda = menuAberto && gesture.dx < -12 && Math.abs(gesture.dx) > Math.abs(gesture.dy);
 
         return (
           (comecaNaBorda && arrastaParaDireita) ||
           arrastaParaEsquerda
         );
       },
-
       onPanResponderGrant: () => {
         gestoHorizontal.current = true;
       },
-
       onPanResponderRelease: (_, gesture) => {
         if (gesture.dx > 60) {
           setMenuAberto(true);
         } else if (gesture.dx < -60) {
           setMenuAberto(false);
         }
-
         gestoHorizontal.current = false;
       },
-
       onPanResponderTerminate: () => {
         gestoHorizontal.current = false;
       },
@@ -203,56 +147,18 @@ export default function Home() {
             : "mais";
 
   return (
-    <View
-      style={styles.container}
-      onTouchStart={(event) => {
-        inicioArraste.current = event.nativeEvent.pageX;
-      }}
-      {...panResponder.panHandlers}
-    >
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={FUNDO}
-      />
-
-      <MenuDrawer
-        visible={menuAberto}
-        onClose={() => setMenuAberto(false)}
-        rotaAtiva={rotaAtiva}
-      />
-
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        scrollEventThrottle={16}
-        contentContainerStyle={[
-          styles.conteudo,
-          {
-            paddingTop: Math.max(insets.top, 8) + 6,
-            paddingBottom: 20,
-          },
-        ]}
-      >
+    <View style={styles.container} onTouchStart={(event) => { inicioArraste.current = event.nativeEvent.pageX; }} {...panResponder.panHandlers}>
+      <MenuDrawer visible={menuAberto} onClose={() => setMenuAberto(false)} rotaAtiva={rotaAtiva}/>
+      <ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16} contentContainerStyle={[ styles.conteudo, { paddingTop: Math.max(insets.top, 8) + 6, paddingBottom: 20, },]}>
         {/* CABEÇALHO */}
         <View style={styles.cabecalho}>
           <View style={styles.perfil}>
-            <TouchableOpacity
-              style={styles.btnMenu}
-              onPress={() => setMenuAberto(true)}
-              activeOpacity={0.6}
-            >
-              <Ionicons
-                name="menu"
-                size={30}
-                color={TEXTO}
-              />
+            <TouchableOpacity style={styles.btnMenu} onPress={() => setMenuAberto(true)} activeOpacity={0.6}>
+              <Ionicons name="menu" size={30} color={TEXTO}/>
             </TouchableOpacity>
 
             <View style={styles.avatar}>
-              <Ionicons
-                name="person"
-                size={37}
-                color="#F7E5DD"
-              />
+              <Ionicons name="person" size={37} color="#F7E5DD"/>
             </View>
 
             <View style={styles.dadosPerfil}>
@@ -267,16 +173,8 @@ export default function Home() {
             </View>
           </View>
 
-          <TouchableOpacity
-            style={styles.notificacao}
-            onPress={() => navegar("/notificacoes")}
-            activeOpacity={0.7}
-          >
-            <Ionicons
-              name="notifications-outline"
-              size={25}
-              color={TEXTO}
-            />
+          <TouchableOpacity style={styles.notificacao} onPress={() => navegar("/notificacoes")} activeOpacity={0.7}>
+            <Ionicons name="notifications-outline" size={25} color={TEXTO}/>
           </TouchableOpacity>
         </View>
 
@@ -293,16 +191,8 @@ export default function Home() {
           </Text>
 
           <View style={styles.resumoCards}>
-            <TouchableOpacity
-              style={styles.resumoCard}
-              activeOpacity={0.8}
-              onPress={() => navegar("/agenda")}
-            >
-              <Ionicons
-                name="calendar-outline"
-                size={20}
-                color={TEXTO}
-              />
+            <TouchableOpacity style={styles.resumoCard} activeOpacity={0.8} onPress={() => navegar("/novo-agendamento")}>
+              <Ionicons name="calendar-outline" size={20} color={TEXTO}/>
               <Text style={styles.numeroAgendamentos}>
                 3 agendamentos
               </Text>
@@ -312,16 +202,8 @@ export default function Home() {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.resumoCard}
-              activeOpacity={0.8}
-              onPress={() => navegar("/financeiro")}
-            >
-              <Ionicons
-                name="cash-outline"
-                size={20}
-                color={TEXTO}
-              />
+            <TouchableOpacity style={styles.resumoCard} activeOpacity={0.8} onPress={() => navegar("/financeiro")}>
+              <Ionicons name="cash-outline" size={20} color={TEXTO}/>
               <Text style={styles.valorFinanceiro}>
                 R$ 360,00
               </Text>
@@ -338,29 +220,10 @@ export default function Home() {
         </Text>
 
         <View style={styles.atalhosContainer}>
-          <Atalho
-            titulo={"Novo\nagendamento"}
-            icone="add-circle-outline"
-            destino="/agenda"
-          />
-
-          <Atalho
-            titulo="Ver agenda"
-            icone="calendar-outline"
-            destino="/agenda"
-          />
-
-          <Atalho
-            titulo="Clientes"
-            icone="people-outline"
-            destino="/clientes"
-          />
-
-          <Atalho
-            titulo="Financeiro"
-            icone="bar-chart-outline"
-            destino="/financeiro"
-          />
+          <Atalho titulo={"Novo\nagendamento"} icone="add-circle-outline" destino="/novo-agendamento"/>
+          <Atalho titulo="Ver agenda" icone="calendar-outline" destino="/agenda"/>
+          <Atalho titulo="Clientes" icone="people-outline" destino="/clientes"/>
+          <Atalho titulo="Financeiro" icone="bar-chart-outline" destino="/financeiro"/>
         </View>
 
         {/* AGENDAMENTOS */}
@@ -369,10 +232,7 @@ export default function Home() {
             Agendamentos de hoje
           </Text>
 
-          <TouchableOpacity
-            onPress={() => navegar("/agenda")}
-            activeOpacity={0.7}
-          >
+          <TouchableOpacity onPress={() => navegar("/agenda")} activeOpacity={0.7}>
             <Text style={styles.verTodos}>
               Ver todos ({agendamentos.length})
             </Text>
@@ -561,6 +421,7 @@ const styles = StyleSheet.create({
   notificacao: {
     paddingHorizontal: 5,
     paddingVertical: 8,
+    marginBottom: 40
   },
 
   resumo: {
