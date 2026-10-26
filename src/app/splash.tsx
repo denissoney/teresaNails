@@ -26,9 +26,10 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 230,
-    height: 230,
-    marginBottom: 12,
+    width: 300,
+    height: 300,
+    marginBottom: 12,  
+    
   },
 
   nome: {
