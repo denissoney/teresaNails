@@ -7,6 +7,7 @@
     "scheme": "teresanails",
     "userInterfaceStyle": "light",
     "android": {
+      "package": "com.denissoney.teresanails",
       "predictiveBackGestureEnabled": false
     },
     "web": {
@@ -23,11 +24,22 @@
           "resizeMode": "contain"
         }
       ],
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "da199440-aed9-4e60-9b43-5046681f09f0"
+      }
     }
   }
 }

@@ -144,12 +144,6 @@ export default function MenuDrawer({
         statusBarTranslucent
         onRequestClose={fecharMenu}
       >
-        <StatusBar
-          backgroundColor="transparent"
-          barStyle="dark-content"
-          translucent
-        />
-
         <View style={styles.overlay}>
           <Animated.View
             style={[

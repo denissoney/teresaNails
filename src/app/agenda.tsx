@@ -1,14 +1,5 @@
 import React, { useMemo, useState, useEffect, useCallback } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  PanResponder,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, PanResponder, ActivityIndicator,} from "react-native";
 import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter, usePathname, useFocusEffect } from "expo-router";
@@ -24,11 +15,9 @@ type Agendamento = {
   serv: string;
   status: "Confirmado" | "Pendente";
 };
-
 const DIAS_VISIVEIS = 7;
 const ROSA = "#f7c5d8";
 const FUNDO = "#FFF8F5";
-
 function formatarData(data: Date) {
   const texto = data.toLocaleDateString("pt-BR", {
     weekday: "long",
@@ -55,52 +44,36 @@ function somarDias(data: Date, quantidade: number) {
 function obterInicioSemana(data: Date) {
   return somarDias(data, -3);
 }
-
 export default function Agenda() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const pathname = usePathname();
-
   const [diaSel, setDiaSel] = useState(() => new Date());
   const [menuAberto, setMenuAberto] = useState(false);
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
   const [carregando, setCarregando] = useState(true);
-
   const dataSelecionada = dataISO(diaSel);
-
   const carregarAgendamentos = useCallback(async () => {
     try {
       setCarregando(true);
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { setAgendamentos([]); return; }
-
       // busca uma janela de 14 dias ao redor do dia selecionado para o swipe ficar rápido
       const inicioJanela = dataISO(somarDias(diaSel, -7));
       const fimJanela = dataISO(somarDias(diaSel, 7));
-
       const { data, error } = await supabase
         .from("agendamentos")
-        .select(`
-          id,
-          data,
-          hora,
-          duracao,
-          status,
-          clientes ( nome ),
-          servicos ( nome )
-        `)
+        .select(` id, data, hora, duracao, status, clientes ( nome ), servicos ( nome )`)
         .eq("user_id", user.id)
         .gte("data", inicioJanela)
         .lte("data", fimJanela)
         .order("hora", { ascending: true });
-
       if (error) {
         console.log("Erro ao buscar agendamentos:", error.message);
         // Se a tabela ainda não existe, cai aqui - mantém vazio
         setAgendamentos([]);
         return;
       }
-
       const mapeados: Agendamento[] = (data || []).map((item: any) => ({
         id: item.id,
         data: item.data,
@@ -110,7 +83,6 @@ export default function Agenda() {
         serv: item.servicos?.nome || "Serviço",
         status: item.status || "Confirmado",
       }));
-
       setAgendamentos(mapeados);
     } catch (e) {
       console.log(e);
@@ -118,28 +90,22 @@ export default function Agenda() {
       setCarregando(false);
     }
   }, [diaSel]);
-
   useEffect(() => {
     carregarAgendamentos();
   }, [carregarAgendamentos]);
-
   // recarrega quando volta pra tela
-  useFocusEffect(
-    useCallback(() => {
+  useFocusEffect( useCallback(() => {
       carregarAgendamentos();
     }, [carregarAgendamentos])
   );
-
   const agendamentosDoDia = useMemo(
     () => agendamentos.filter((a) => a.data === dataSelecionada).sort((a, b) => a.hora.localeCompare(b.hora)),
     [agendamentos, dataSelecionada]
   );
-
   const diasVisiveis = useMemo(() => {
     const inicio = obterInicioSemana(diaSel);
     return Array.from({ length: DIAS_VISIVEIS }, (_, indice) => somarDias(inicio, indice));
   }, [diaSel]);
-
   function navegar(destino: string) {
     if (destino === pathname) return;
     router.push(destino as never);
@@ -147,7 +113,6 @@ export default function Agenda() {
   function selecionarDia(data: Date) { setDiaSel(new Date(data)); }
   function mudarDia(direcao: number) { setDiaSel((d) => somarDias(d, direcao)); }
   function novoAgendamento() { router.push("/novo-agendamento" as never); }
-
   const gestoDias = useMemo(
     () =>
       PanResponder.create({
@@ -159,13 +124,10 @@ export default function Agenda() {
       }),
     []
   );
-
   const rotaAtiva = pathname.startsWith("/agenda") ? "agenda" : pathname.startsWith("/clientes") ? "clientes" : pathname.startsWith("/financeiro") ? "financeiro" : pathname.startsWith("/mais") ? "mais" : "home";
-
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <MenuDrawer visible={menuAberto} onClose={() => setMenuAberto(false)} rotaAtiva={rotaAtiva} />
-
       <View style={styles.header}>
         <TouchableOpacity style={styles.btnMenu} onPress={() => setMenuAberto(true)} activeOpacity={0.7}>
           <Ionicons name="menu" size={29} color="#000" />

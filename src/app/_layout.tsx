@@ -4,34 +4,26 @@ import * as SplashScreen from "expo-splash-screen";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import { supabase } from "../lib/supabase";
 import { ActivityIndicator, View } from "react-native";
-
 SplashScreen.preventAutoHideAsync().catch(() => {});
-
 const ROTAS_PUBLICAS = ["", "index", "cadastro", "cadastro-sucesso"];
-
 export default function Layout() {
   const [ready, setReady] = useState(false);
   const router = useRouter();
   const segments = useSegments();
-
   useEffect(() => {
     async function init() {
       // Esconde splash
       setTimeout(() => SplashScreen.hideAsync().catch(() => {}), 800);
-
       // Verifica sessão atual
       const { data: { session } } = await supabase.auth.getSession();
       setReady(true);
-
       // Se não tem sessão e não está em rota pública, manda pro login
       const rotaAtual = segments[0] || "";
       if (!session && !ROTAS_PUBLICAS.includes(rotaAtual)) {
         router.replace("/");
       }
     }
-
     init();
-
     // Escuta mudanças de auth
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       const rotaAtual = segments[0] || "";
